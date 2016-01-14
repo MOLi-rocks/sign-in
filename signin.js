@@ -70,6 +70,23 @@ bot.onText(/\/signout/, function (msg, match) {
 
 });
 
+bot.onText(/\/status/, function (msg, match) {
+//  var resp = match[1];
+	 
+	var signInRef = ref.child('list');
+	var currentPeople = '';
+	signInRef.on("value", function(list) {
+		var listObj = list.val();
+		for(var key in listObj) {
+			if(listObj[key].status) {
+				console.log('@' + listObj[key].username);
+				currentPeople += ('@' + listObj[key].username + ', ');
+			}
+		}
+		bot.sendMessage(msg.chat.id, currentPeople + 'is in MOLi');
+	});
+});
+
 var checkSign = function (list, checkStatus) {
     for(var key in list) {
       if(listObj[key].status == checkStatus) {
