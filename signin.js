@@ -35,16 +35,16 @@ bot.onText(/\/signin/, function (msg, match) {
 	var signInRef = ref.child('list');
 
 	signInRef.push({
-		first_name: msg.chat.first_name,
-		last_name: msg.chat.last_name,
-		username: msg.chat.username,
-		id: msg.chat.id, 
+		first_name: msg.from.first_name,
+		last_name: msg.from.last_name,
+		username: msg.from.username,
+		id: msg.from.id, 
 		signInDate: Date.now(),
 		status: true
 	});
-	console.log('@' + msg.chat.username + ' is sign in ' + date);
+	console.log('@' + msg.from.username + ' is sign in ' + date);
 	console.log(msg);
-	bot.sendMessage(msg.chat.id, '@' + msg.chat.username + ' is sign in ' + date);
+	bot.sendMessage(msg.from.id, '@' + msg.from.username + ' is sign in ' + date);
 });
 
 bot.onText(/\/signout/, function (msg, match) {
@@ -58,10 +58,12 @@ bot.onText(/\/signout/, function (msg, match) {
 		console.log(listObj);
 		for(var key in listObj) {
 			if(listObj[key].status) {
-				console.log(key + ' ' + listObj[key].status);
-				signInRef.child(key).update({ status: false, signOutDate: Date.now()});
-				bot.sendMessage(listObj[key].id, '@' + listObj[key].username + ' is sign out ' + date);
-				break;
+				if(listObj[key].id == msg.from.id) {
+					console.log(key + ' ' + listObj[key].status);
+					signInRef.child(key).update({ status: false, signOutDate: Date.now()});
+					bot.sendMessage(listObj[key].id, '@' + listObj[key].username + ' is sign out ' + date);
+					break;
+				}
 			}
 		}
 	});
