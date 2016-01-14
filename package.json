@@ -1,0 +1,18 @@
+{
+  "name": "MOLi-SignIn",
+  "version": "0.0.0",
+  "description": "MOLi Sign In System",
+  "main": "test.js",
+  "scripts": {
+    "start": "nodejs test.js"
+  },
+  "author": {
+    "name": "Jerry Wang",
+    "email": "focaaby@gamil.com"
+  },
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "node-telegram-bot-api": "~0.19.2",
+    "firebase": "~2.3.2"
+  }
+}
