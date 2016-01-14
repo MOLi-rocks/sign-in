@@ -34,16 +34,15 @@ bot.onText(/\/signin/, function (msg, match) {
 	var date = new Date();
 	var username = msg.chat.username; 
 	var signInRef = ref.child('list');
-	 
+
 	signInRef.push({
 		first_name: msg.chat.first_name,
 		last_name: msg.chat.last_name,
 		username: msg.chat.username,
 		id: msg.chat.id, 
-		date: Date.now(),
+		signInDate: Date.now(),
 		status: true
 	});
-
 	console.log('@' + username + ' is sign in ' + date);
 	console.log(msg);
 	bot.sendMessage(id, '@' + username + ' is sign in ' + date);
@@ -53,6 +52,7 @@ bot.onText(/\/signout/, function (msg, match) {
 //  var resp = match[1];
 	 
 	var signInRef = ref.child('list');
+	var date = new Date();
 
 	signInRef.on("value", function(list) {
 		var listObj = list.val();
@@ -60,7 +60,8 @@ bot.onText(/\/signout/, function (msg, match) {
 		for(var key in listObj) {
 			if(listObj[key].status) {
 				console.log(key + ' ' + listObj[key].status);
-				signInRef.child(key).update({ status: false });
+				signInRef.child(key).update({ status: false, signOutDate: Date.now()});
+				bot.sendMessage(listObj[key].id, '@' + listObj[key].username + ' is sign out ' + date);
 				break;
 			}
 		}
@@ -71,7 +72,7 @@ bot.onText(/\/signout/, function (msg, match) {
 var checkSign = function (list, checkStatus) {
     for(var key in list) {
       if(listObj[key].status == checkStatus) {
-        retrun true;
+        return true;
       }
     }
     return false;
