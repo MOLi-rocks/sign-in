@@ -67,3 +67,12 @@ bot.onText(/\/signout/, function (msg, match) {
   });
 
 });
+
+var checkSign = function (list, checkStatus) {
+    for(var key in list) {
+      if(listObj[key].status == checkStatus) {
+        retrun true;
+      }
+    }
+    return false;
+};
