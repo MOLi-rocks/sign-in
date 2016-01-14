@@ -32,7 +32,6 @@ bot.onText(/\/help/, function (msg) {
 bot.onText(/\/signin/, function (msg, match) {
 //  var resp = match[1];
 	var date = new Date();
-	var username = msg.chat.username; 
 	var signInRef = ref.child('list');
 
 	signInRef.push({
@@ -43,9 +42,9 @@ bot.onText(/\/signin/, function (msg, match) {
 		signInDate: Date.now(),
 		status: true
 	});
-	console.log('@' + username + ' is sign in ' + date);
+	console.log('@' + msg.chat.username + ' is sign in ' + date);
 	console.log(msg);
-	bot.sendMessage(id, '@' + username + ' is sign in ' + date);
+	bot.sendMessage(msg.chat.id, '@' + msg.chat.username + ' is sign in ' + date);
 });
 
 bot.onText(/\/signout/, function (msg, match) {
