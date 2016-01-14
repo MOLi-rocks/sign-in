@@ -49,13 +49,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(key, list) in lists | filter:searchText"> 
+						<tr ng-repeat="(key, list) in lists | filter:searchText | orderBy:'-date'"> 
 							<td ng-bind="list.id"></td>
 							<td ng-bind="list.username"></td>
 							<td ng-bind="list.first_name"></td>
 							<td ng-bind="list.status" ng-class=" list.status ? 'bg-success' : 'bg-info' "></td>
-							<td ng-bind="list.signInDate"></td>
-							<td ng-bind="list.signOutDate"></td>
+							<td ng-bind="list.signInDate | date:'medium'"></td>
+							<td ng-bind="list.signOutDate | date:'medium'"></td>
 						</tr>
 					</tbody>
 				</table>
