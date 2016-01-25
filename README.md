@@ -19,7 +19,7 @@
 
 ### 簽退
 - RFID 或 Telegram command
-- 訊息：簽到成功
+- 訊息：簽退成功
 
 ### 狀態
 - 訊息：MOLi 現在人數
